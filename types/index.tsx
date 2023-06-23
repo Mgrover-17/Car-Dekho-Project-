@@ -24,3 +24,25 @@ export interface CarProperties {
     drive: string;
     city_mpg: number;
   }
+
+export interface FilterProps {
+    manufacturer?: string;
+    year?: number;
+    model?: string;
+    limit?: number;
+    fuel?: string;
+  }
+
+  export interface HomeProps {
+    searchParams: FilterProps;
+  }
+
+export interface CustomFilterProps {
+    title: string;
+    options: OptionProps[];
+  }
+
+export interface ShowMoreProps {
+    pageNumber: number;
+    isNext: boolean;
+}

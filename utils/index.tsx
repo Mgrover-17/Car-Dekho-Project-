@@ -1,8 +1,8 @@
-import { CarProperties } from "@/types";
+import { CarProperties, FilterProps } from "@/types";
 
-export async function fetchCars() {
-   
+export async function fetchCars(filters:FilterProps) {
   
+  const {manufacturer, year ,model, limit, fuel } = filters;
     // Set the required headers for the API request
     const headers: HeadersInit = {
         'X-RapidAPI-Key':process.env.RAPID_API_KEY||"",
@@ -11,7 +11,8 @@ export async function fetchCars() {
   
     // Set the required headers for the API request
     const response = await fetch(
-      `https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?model=q3`,
+     `https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${manufacturer}&year=${year}&model=${model}&limit=${limit}&fuel_type=${fuel}`,
+     // `https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?model=q3`,
       {
         headers: headers,
       }
@@ -51,3 +52,16 @@ export const calculateCarPrice = (city_mpg: number, year: number) => {
   
     return `${url}`;
   }
+
+  export const updateSearchParams = (type: string, value: string) => {
+    // Get the current URL search params
+    const searchParams = new URLSearchParams(window.location.search);
+  
+    // Set the specified search parameter to the given value
+    searchParams.set(type, value);
+  
+    // Set the specified search parameter to the given value
+    const newPathname = `${window.location.pathname}?${searchParams.toString()}`;
+  
+    return newPathname;
+  };
